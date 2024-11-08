@@ -87,3 +87,6 @@ typings/
 
 # VS code
 .vscode/
+
+# Keys
+*.pem
