@@ -10,6 +10,7 @@ import {
   updateProduct,
   removeProduct
 } from "./routes/product.route.js";
+import path from "path";
 
 const PORT = process.env.PORT || 3000;
 
@@ -21,23 +22,21 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.disable("x-powered-by");
 
+// Serve static HTML file
+app.get("/home", (req, res) => {
+  const __dirname = path.resolve();  // Get the directory name of the current module
+  res.sendFile(path.join(__dirname, "public", "index.html"));  // Send index.html from the 'public' folder
+});
+
 app.get("/", (req, res) => {
   res.status(200).send(`Server is running now! ${PORT}`);
 });
 
-// show all products
+// product route
 app.use("/", showAllProducts);
-
-// show individual product
 app.use("/", showProduct);
-
-// add product
 app.use("/", addProduct);
-
-// update product
 app.use("/", updateProduct);
-
-// Delete API
 app.use("/", removeProduct);
 
 export default app;
